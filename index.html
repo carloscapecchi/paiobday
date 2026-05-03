@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para ti</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* FONDO MILITAR */
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: #f5f5f5;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(60,70,50,0.6), transparent),
+    radial-gradient(circle at 80% 70%, rgba(30,40,30,0.8), transparent),
+    linear-gradient(135deg, #1b1f1b, #2e3a2f, #1a1d1a);
+}
+
+/* TEXTURA CAMUFLAJE SUAVE */
+body::before {
+  content: "";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://www.transparenttextures.com/patterns/camo.png');
+  opacity: 0.15;
+  z-index: -1;
+}
+
+/* LOOP TEXTO */
+.loop-container {
+  width: 100%;
+  overflow: hidden;
+  margin-top: 30px;
+}
+
+.loop-text {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: #d4ffb2;
+  animation: scroll 18s linear infinite;
+
+  /* EFECTO ILUMINADO */
+  text-shadow:
+    0 0 5px #aaff88,
+    0 0 10px #88ff66,
+    0 0 20px #66ff44,
+    0 0 40px rgba(100,255,100,0.6);
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* POEMA */
+.poema {
+  max-width: 750px;
+  margin: 60px auto;
+  padding: 40px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 15px;
+  backdrop-filter: blur(6px);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  line-height: 1.8;
+  box-shadow: 0 0 25px rgba(0,0,0,0.6);
+}
+
+/* TÍTULO */
+.titulo {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  color: #c2f5a9;
+}
+
+/* CARRUSEL */
+.carousel {
+  position: relative;
+  max-width: 650px;
+  margin: 50px auto;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0,0,0,0.7);
+}
+
+.carousel img {
+  width: 100%;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.carousel img.active {
+  opacity: 1;
+  position: relative;
+}
+
+/* BOTONES */
+button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* EFECTO FINAL */
+.footer {
+  margin: 50px 0;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO -->
+<audio id="music" autoplay loop>
+  <source src="./videoplayback.m4a" type="audio/mpeg">
+</audio>
+
+<!-- LOOP -->
+<div class="loop-container">
+  <div class="loop-text">
+    ¿Cómo no quedar cautivado con tal belleza? Felicidades y muchas gracias por llegar.
+  </div>
+</div>
+
+<!-- POEMA -->
+<div class="poema">
+  <div class="titulo">Feliz Cumpleaños atrasado 😭</div>
+  <p>
+  Hay presencias que no hacen ruido,<br>
+  pero dejan marca.<br><br>
+
+  Como la tuya…<br>
+  firme, serena, imposible de ignorar.<br><br>
+
+  Entre disciplina y coraje,<br>
+  también habita algo más suave,<br>
+  algo que no se entrena…<br>
+  pero que se siente.<br><br>
+
+  Hoy (aunque tarde),celebro eso:<br>
+  no solo lo que haces,<br>
+  sino lo que eres cuando nadie mira.<br><br>
+
+  Celebro tu risa, que ilumina sin esfuerzo,<br>
+  y esa forma tuya de ser… tan única,<br>
+  tan imposible de ignorar.<br><br>
+
+  Porque hay personas que pasan,<br>
+  y hay personas que dejan huella,<br>
+  y tú… haces que el mundo se detenga un segundo más.<br><br>
+
+  Que la vida te devuelva<br>
+  en calma todo lo que das en fuerza,<br>
+  y en momentos memorables<br>
+  todo lo que entregas en silencio.<br><br>
+
+  Feliz cumpleaños -mejor tarde que nunca-.
+  </p>
+</div>
+
+<!-- CARRUSEL -->
+<div class="carousel">
+  <img src="./2.jpeg" class="active">
+  <img src="./5.jpeg">
+  <img src="./1.jpeg">
+  <img src="./3.jpeg">
+  <img src="./4.jpeg">
+  <img src="./6.jpeg">
+  <img src="./7.jpeg">
+
+  <button class="prev">❮</button>
+  <button class="next">❯</button>
+</div>
+
+<div class="footer">Hecho con intención ✨</div>
+
+<script>
+
+// CARRUSEL
+let index = 0;
+const images = document.querySelectorAll(".carousel img");
+
+function showImage(i) {
+  images.forEach(img => img.classList.remove("active"));
+  images[i].classList.add("active");
+}
+
+document.querySelector(".next").onclick = () => {
+  index = (index + 1) % images.length;
+  showImage(index);
+};
+
+document.querySelector(".prev").onclick = () => {
+  index = (index - 1 + images.length) % images.length;
+  showImage(index);
+};
+
+// AUTOPLAY
+setInterval(() => {
+  index = (index + 1) % images.length;
+  showImage(index);
+}, 4000);
+
+// AUDIO FIX
+document.body.addEventListener("click", () => {
+  document.getElementById("music").play();
+});
+
+</script>
+
+</body>
+</html>
